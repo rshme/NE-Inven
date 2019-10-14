@@ -1,0 +1,10 @@
+.header .left{
+	flex:50%;
+	max-width: 50%;
+	justify-content: flex-start;
+}
+
+.header .right{
+	flex:50%;
+	max-width: 50%;
+}

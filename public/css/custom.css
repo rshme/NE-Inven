@@ -1,0 +1,160 @@
+@import './tablet.css';
+
+html, body{
+	overflow-x:hidden;
+}
+
+a{
+	text-decoration:none !important;
+}
+
+section#hero{
+	background:linear-gradient(to right, #851ABD, #B319B9);
+	height:100vh;
+	color:#fff;
+	position:relative;
+}
+
+section#hero .content{
+	text-align:center;
+	max-width: 50%;
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	z-index:9;
+}
+ h1.hero-title{
+ 	font-size: 52px;
+ 	font-family:'Capriola';
+ 	font-weight: bold;
+}
+
+.btn-login{
+	background:#fff;
+	border:none;
+	outline:none;
+	cursor:pointer;
+	padding: 10px 20px;
+	border-radius: 25px;
+	font-size: 18px;
+	font-family:'Capriola';
+	color:#000;
+	transition: all .5s;
+	display:inline-block;
+	width:140px;
+}
+
+.btn-login:hover{
+	background: #D5D5D5;
+	color:#000;
+}
+
+section#hero .content p{
+	margin-bottom: 7%;
+	font-size: 22px;
+}
+
+.sidebar-wrapper{
+	padding: 68px 0;
+	color:#fff;
+	background-color:#4F4F4F;
+	position:fixed;
+	top:0;
+	left:0;
+	height:100vh;
+	min-width: 15vw;
+}
+
+ul.sidebar-ul{
+	padding:0;
+	list-style:none;
+}
+
+li.sidebar-item{
+	padding: 20px 25px;
+}
+
+li.sidebar-item a{
+	color:#fff;
+	text-decoration:none;
+	font-size: 16px;
+	font-family:'Capriola';
+	display:inline-block;
+	width:100%;
+}
+
+li.sidebar-item:hover{
+	background-color:#171717;
+}
+
+.header{
+	background:linear-gradient(to right, #851ABD, #B319B9);
+	padding: 10px 25px;
+	color:#fff;
+	display:flex;
+	justify-content: space-between;
+	align-items:center;
+	flex-flow: wrap row;
+	font-size: 18px;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	z-index: 999 !important;
+}
+
+.header{
+	padding: 17px 32px;
+}
+
+.header .left{
+	flex:10%;
+}
+
+.header .left h3{
+	font-family:'Capriola';
+	font-size: 28px;
+	margin:0;
+}
+
+.header .right{
+	flex:90%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.header .right a{
+	text-decoration:none;
+	color:#fff;
+}
+
+.header .right a:hover{
+	color:#fff;
+}
+.dashboard .content{
+	margin-top: 7.5%;
+}
+ul.dropdown-menu li a{
+	color:#000 !important;
+	padding: 15px;
+}
+
+table .btn-edit{
+	padding: 0 5px;
+}
+
+.has-errors{
+	color:#DD2222;
+}
+
+.has-errors input, .has-errors .custom-select, .has-errors textarea{
+	border-color: #DD2222;
+	border:1px solid #DD2222;
+}
+
+.help-block{
+font-size:14px;
+color:#DD2222;
+font-weight:bold;
+}
