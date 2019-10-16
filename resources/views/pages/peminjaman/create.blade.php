@@ -17,7 +17,7 @@
 		<label for="jumlah">
 			Jumlah
 		</label>
-		<input type="text" name="jumlah" class="form-control" id="jumlah">
+		<input type="text" name="jumlah" class="form-control" id="jumlah" autocomplete="off">
 	</div>
 
 	<div class="form-group">

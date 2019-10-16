@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use App\Exports\PetugasExport;
 use Excel;
+use PDF;
 
 class PetugasController extends Controller
 {
@@ -155,5 +156,14 @@ class PetugasController extends Controller
     public function excel()
     {
         return Excel::download(new PetugasExport, 'petugas.xlsx');
+    }
+
+    public function pdf()
+    {
+        $petugas = Petugas::with(['level'])->get();
+
+        $pdf = PDF::loadView('layouts.partials.exports.pdf.petugas', compact('petugas'));
+
+        return $pdf->download('petugas.pdf');
     }
 }

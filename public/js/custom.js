@@ -131,6 +131,14 @@ $('body').on('submit', '#form-store', function(e){
 		error: function(xhr){
 			const errors = xhr.responseJSON;
 
+			if (xhr.status === 401) {
+				Swal.fire({
+					title:'Peringatan !',
+					type:'warning',
+					text:errors.msg,
+				});
+			}
+
 			$.each(errors.errors, function(key, value){
 				$('#' + key)
 				.closest('.form-group')
@@ -252,6 +260,16 @@ $('body').on('click', '#btn-delete', function(e){
 					$('#tablePetugas').DataTable().ajax.reload();
 					$('#tablePeminjaman').DataTable().ajax.reload();
 					$('#tableLevel').DataTable().ajax.reload();
+				},
+
+				error: function(xhr){
+					const error = xhr.responseJSON;
+
+					Swal.fire({
+						title:'Peringatan !',
+						type:'warning',
+						text:error.msg,
+					});
 				}
 			});
 		}

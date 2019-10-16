@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use App\Exports\RuangExport;
 use Excel;
+use PDF;
 
 class RuangController extends Controller
 {
@@ -129,5 +130,13 @@ class RuangController extends Controller
     public function excel()
     {
         return Excel::download(new RuangExport, 'ruang.xlsx');
+    }
+    public function pdf()
+    {
+        $ruang = Ruang::all();
+
+        $pdf = PDF::loadView('layouts.partials.exports.pdf.ruang', ['ruang'=>$ruang]);
+
+         return $pdf->download('ruang.pdf');
     }
 }

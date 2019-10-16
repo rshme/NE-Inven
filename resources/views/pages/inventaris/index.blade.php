@@ -23,7 +23,7 @@
 									<i class="fas fa-table"></i> Download Excel
 								</a>
 
-								<a href="#" class="btn btn-danger ml-3">
+								<a href="{{ route('inventaris.pdf') }}" class="btn btn-danger ml-3">
 									<i class="fas fa-file-pdf"></i> Download PDF
 								</a>
 

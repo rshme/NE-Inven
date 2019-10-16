@@ -5,21 +5,21 @@
 		<label for="nama_pegawai">
 			Nama Pegawai
 		</label>
-		<input type="text" name="nama_pegawai" value="{{ $data->nama_pegawai }}" class="form-control" id="nama_pegawai">
+		<input type="text" name="nama_pegawai" value="{{ $data->nama_pegawai }}" class="form-control" id="nama_pegawai" autocomplete="off">
 	</div>
 
 	<div class="form-group">
 		<label for="nip">
 			Nip
 		</label>
-		<input type="text" name="nip" class="form-control" id="nip" placeholder="Kosongkan jika tidak ada perubahan">
+		<input type="text" name="nip" class="form-control" id="nip" placeholder="Kosongkan jika tidak ada perubahan" autocomplete="off">
 	</div>
 
 	<div class="form-group">
 		<label for="alamat">
 			Alamat
 		</label>
-		<textarea class="form-control" name="alamat" id="alamat" rows="3">{{ $data->alamat }}</textarea>
+		<textarea class="form-control" name="alamat" id="alamat" rows="3" autocomplete="off">{{ $data->alamat }}</textarea>
 	</div>
 
 	<div class="d-flex">

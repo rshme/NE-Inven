@@ -20,13 +20,7 @@
 					-
 				@endif
 			</p>
-			<p class="mb-3">
-				@if($data->status_peminjaman == 'sudah_kembali')
-					<p>Sudah Kembali</p>
-				@elseif($data->status_peminjaman == 'belum_kembali')
-					<p>Belum Kembali</p>
-				@endif
-			</p>
+			<p class="mb-3">{{ $data->status_peminjaman }}</p>
 		</div>
 	</div>
 </div>

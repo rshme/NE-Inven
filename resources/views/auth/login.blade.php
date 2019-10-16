@@ -2,12 +2,12 @@
 	@csrf
 		<div class="form-group">
 		    <label for="username">Username</label>
-		    <input type="text" class="form-control" name="username" id="username" placeholder="Example : John.Doe" autofocus autocomplete="">
+		    <input type="text" class="form-control" name="username" id="username" placeholder="Example : John.Doe" autofocus autocomplete="off">
 		</div>
 
 		<div class="form-group">
 		    <label for="password">Password</label>
-		    <input type="password" class="form-control" name="password" id="password" placeholder="*******" autofocus autocomplete="">
+		    <input type="password" class="form-control" name="password" id="password" placeholder="*******" autofocus>
 		</div>
 
 		<div class="errors"></div>

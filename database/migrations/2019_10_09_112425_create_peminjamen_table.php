@@ -19,7 +19,7 @@ class CreatePeminjamenTable extends Migration
             $table->foreign('id_pegawai')->references('id_pegawai')->on('pegawai')->onDelete('cascade');
             $table->date('tanggal_pinjam');
             $table->date('tanggal_kembali')->nullable();
-            $table->enum('status_peminjaman', ['belum_kembali', 'sudah_kembali'])->nullable()->default('belum_kembali');
+            $table->enum('status_peminjaman', ['Belum Kembali', 'Sudah Kembali'])->nullable()->default('Belum Kembali');
             $table->timestamps();
         });
     }

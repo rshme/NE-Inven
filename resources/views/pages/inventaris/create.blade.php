@@ -5,7 +5,7 @@
 		<label for="nama">
 			Nama Barang
 		</label>
-		<input type="text" name="nama" class="form-control" id="nama">
+		<input type="text" name="nama" class="form-control" id="nama" autocomplete="off">
 	</div>
 
 	<div class="form-group">
@@ -48,14 +48,14 @@
 		<label for="keterangan">
 			Keterangan
 		</label>
-		<textarea class="form-control" name="keterangan" id="keterangan" rows="3"></textarea>
+		<textarea class="form-control" name="keterangan" id="keterangan" rows="3" autocomplete="off"></textarea>
 	</div>
 
 	<div class="form-group">
 		<label for="jumlah">
 			Jumlah
 		</label>
-		<input type="text" name="jumlah" class="form-control" id="jumlah">
+		<input type="text" name="jumlah" class="form-control" id="jumlah" autocomplete="off">
 	</div>
 
 	<div class="d-flex">

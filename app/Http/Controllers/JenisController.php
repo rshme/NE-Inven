@@ -8,6 +8,7 @@ use App\Jenis;
 use Illuminate\Http\Request;
 use DataTables;
 use Excel;
+use PDF;
 
 class JenisController extends Controller
 {
@@ -133,5 +134,14 @@ class JenisController extends Controller
 
     public function excel(){
         return Excel::download(new JenisExport, 'jenis.xlsx');
+    }
+
+    public function pdf()
+    {
+        $jenis = Jenis::all();
+
+        $pdf = PDF::loadView('layouts.partials.exports.pdf.jenis', compact('jenis'));
+
+        return $pdf->download('jenis.pdf');
     }
 }

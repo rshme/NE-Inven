@@ -11,6 +11,7 @@ use DataTables;
 use Date;
 use Excel;
 use App\Exports\InvenExport;
+use PDF;
 
 class InventarisController extends Controller
 {
@@ -48,6 +49,8 @@ class InventarisController extends Controller
     public function store(InvenReq $request)
     {
 
+        $find = Inventaris::where('nama', 'LIKE', '%'. $request->nama .'%')->first();
+
         $getdata = count(Inventaris::all());
 
         if ($getdata < 1) {
@@ -75,9 +78,12 @@ class InventarisController extends Controller
 
         $inven['id_petugas'] = auth()->user()->petugas->id_petugas;
 
-        $data = Inventaris::create($inven);
+        if (!$find) {
+            $data = Inventaris::create($inven);
 
-        return response()->json(['msg'=>$data->nama . ' Telah Ditambahkan']);
+            return response()->json(['msg'=>$data->nama . ' Telah Ditambahkan']);
+        }
+        return response()->json(['msg'=>'Nama Barang Sudah Ada'], 401);
     }
 
     /**
@@ -208,5 +214,14 @@ class InventarisController extends Controller
     public function excel()
     {
         return Excel::download(new InvenExport, 'inventaris.xlsx');
+    }
+
+    public function pdf()
+    {
+        $inventaris = Inventaris::with(['petugas', 'jenis', 'ruang'])->get();
+
+        $pdf = PDF::loadView('layouts.partials.exports.pdf.inventaris', compact('inventaris'));
+
+        return $pdf->download('inventaris.pdf');
     }
 }

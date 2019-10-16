@@ -5,7 +5,7 @@
 		<label for="nama_level">
 			Nama Level
 		</label>
-		<input type="text" name="nama_level" value="{{ $data->nama_level }}" class="form-control" id="nama_level">
+		<input type="text" name="nama_level" value="{{ $data->nama_level }}" class="form-control" id="nama_level" autocomplete="off">
 	</div>
 
 	<div class="d-flex">

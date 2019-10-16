@@ -8,6 +8,7 @@ use DataTables;
 use App\Http\Requests\PegawaiRequest;
 use App\Exports\PegawaiExport;
 use Excel;
+use PDF;
 
 class PegawaiController extends Controller
 {
@@ -140,5 +141,14 @@ class PegawaiController extends Controller
     public function excel()
     {
         return Excel::download(new PegawaiExport, 'pegawai.xlsx');
+    }
+
+    public function pdf()
+    {
+        $pegawai = Pegawai::all();
+
+        $pdf = PDF::loadView('layouts.partials.exports.pdf.pegawai', compact('pegawai'));
+
+        return $pdf->download('pegawai.pdf');
     }
 }

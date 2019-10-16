@@ -8,6 +8,7 @@ use DataTables;
 use App\Http\Requests\LevelRequest;
 use App\Exports\LevelExport;
 use Excel;
+use PDF;
 
 class LevelController extends Controller
 {
@@ -125,5 +126,14 @@ class LevelController extends Controller
     public function excel()
     {
         return Excel::download(new LevelExport, 'level.xlsx');
+    }
+
+    public function pdf()
+    {
+        $level = Level::all();
+
+        $pdf = PDF::loadView('layouts.partials.exports.pdf.level', compact('level'));
+
+        return $pdf->download('level.pdf');
     }
 }

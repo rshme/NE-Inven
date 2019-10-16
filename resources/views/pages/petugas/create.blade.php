@@ -5,7 +5,7 @@
 		<label for="nama_petugas">
 			Nama Petugas
 		</label>
-		<input type="text" name="nama_petugas" class="form-control" id="nama_petugas">
+		<input type="text" name="nama_petugas" class="form-control" id="nama_petugas" autocomplete="off">
 	</div>
 
 	<div class="form-group">
@@ -24,7 +24,7 @@
 		<label for="username">
 			Username
 		</label>
-		<input type="text" name="username" class="form-control" id="username">
+		<input type="text" name="username" class="form-control" id="username" autocomplete="off">
 	</div>
 
 	<div class="form-group">

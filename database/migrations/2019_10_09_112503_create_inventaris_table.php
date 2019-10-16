@@ -22,7 +22,7 @@ class CreateInventarisTable extends Migration
             $table->unsignedInteger('id_petugas');
             $table->foreign('id_petugas')->references('id_petugas')->on('petugas')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nama');
-            $table->enum('kondisi', ['baik', 'rusak_ringan', 'rusak_parah']);
+            $table->enum('kondisi', ['Baik', 'Rusak Ringan', 'Rusak Parah']);
             $table->text('keterangan');
             $table->integer('jumlah');
             $table->string('kode_inventaris');

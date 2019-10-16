@@ -33,7 +33,7 @@
 		<label for="jumlah">
 			Jumlah
 		</label>
-		<input type="text" name="jumlah" value="{{ $data->detail->jumlah }}" class="form-control" id="jumlah">
+		<input type="text" name="jumlah" value="{{ $data->detail->jumlah }}" class="form-control" id="jumlah" autocomplete="off">
 	</div>
 
 	<div class="form-group">
@@ -44,10 +44,10 @@
 			<option selected value="{{ $data->status_peminjaman }}">
 				{{ str_replace('_', ' ', ucfirst($data->status_peminjaman)) }}
 			</option>
-			@if($data->status_peminjaman === 'belum_kembali')
-				<option value="sudah_kembali">Sudah kembali</option>
-			@elseif($data->status_peminjaman === 'sudah_kembali')
-				<option value="belum_kembali">Belum kembali</option>
+			@if($data->status_peminjaman === 'Belum Kembali')
+				<option value="Sudah Kembali">Sudah Kembali</option>
+			@elseif($data->status_peminjaman === 'Sudah Kembali')
+				<option value="Belum Kembali">Belum Kembali</option>
 			@endif
 		</select>
 	</div>
