@@ -41,55 +41,52 @@ class PeminjamanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PeminjamanRequest $request)
+    public function store(Request $request)
     {
-        $this->validate($request, [
-            'id_pegawai'=>'required',
-            'id_inventaris'=>'required',
-            'jumlah'=>'required|integer',
-        ]);
+        $array = json_decode($request->all, true);
 
-        $tgl_pinjam = Date::now()->format('Y-m-d');
 
-        $barang = \App\Inventaris::where('id_inventaris', $request->id_inventaris)->first();
+        // $tgl_pinjam = Date::now()->format('Y-m-d');
 
-        if ($barang->jumlah > $request->jumlah) {
+        // $barang = \App\Inventaris::where('id_inventaris', $request->id_inventaris)->first();
 
-            $peminjaman = Peminjaman::create([
-            'id_pegawai'=>$request->id_pegawai,
-            'tanggal_pinjam'=>$tgl_pinjam,
-            ]);
+        // if ($barang->jumlah > $request->jumlah) {
 
-            $peminjaman->detail()->create([
-                'id_peminjaman'=>$peminjaman->id_peminjaman,
-                'id_inventaris'=>$request->id_inventaris,
-                'jumlah'=> $request->jumlah
-            ]);
+        //     $peminjaman = Peminjaman::create([
+        //     'id_pegawai'=>$request->id_pegawai,
+        //     'tanggal_pinjam'=>$tgl_pinjam,
+        //     ]);
 
-            return response()->json([
-                'msg'=>'Berhasil Meminjamkan Barang Kepada ' . $peminjaman->pegawai->nama_pegawai
-            ]);
-        }
-        else{
+        //     $peminjaman->detail()->create([
+        //         'id_peminjaman'=>$peminjaman->id_peminjaman,
+        //         'id_inventaris'=>$request->id_inventaris,
+        //         'jumlah'=> $request->jumlah
+        //     ]);
 
-            if ($barang->jumlah > 0) {
-                $peminjaman = Peminjaman::create([
-                'id_pegawai'=>$request->id_pegawai,
-                'tanggal_pinjam'=>$tgl_pinjam,
-                ]);
+        //     return response()->json([
+        //         'msg'=>'Berhasil Meminjamkan Barang Kepada ' . $peminjaman->pegawai->nama_pegawai
+        //     ]);
+        // }
+        // else{
 
-                $peminjaman->detail()->create([
-                    'id_peminjaman'=>$peminjaman->id_peminjaman,
-                    'id_inventaris'=>$request->id_inventaris,
-                    'jumlah'=> $barang->jumlah
-                ]);
+        //     if ($barang->jumlah > 0) {
+        //         $peminjaman = Peminjaman::create([
+        //         'id_pegawai'=>$request->id_pegawai,
+        //         'tanggal_pinjam'=>$tgl_pinjam,
+        //         ]);
 
-                return response()->json(['msg'=>'Hanya Terpinjam '.$barang->jumlah.' Karena Barang Sudah Habis']);
-            }
-            else{
-                return response()->json(['msg'=>'Stok Barang '.$barang->nama.' Sudah Habis'], 401);
-            }
-        }
+        //         $peminjaman->detail()->create([
+        //             'id_peminjaman'=>$peminjaman->id_peminjaman,
+        //             'id_inventaris'=>$request->id_inventaris,
+        //             'jumlah'=> $barang->jumlah
+        //         ]);
+
+        //         return response()->json(['msg'=>'Hanya Terpinjam '.$barang->jumlah.' Karena Barang Sudah Habis']);
+        //     }
+        //     else{
+        //         return response()->json(['msg'=>'Stok Barang '.$barang->nama.' Sudah Habis'], 401);
+        //     }
+        // }
     }
 
     /**
@@ -240,10 +237,20 @@ class PeminjamanController extends Controller
             return $peminjaman->pegawai->nama_pegawai;
         })->
         addColumn('barang', function($peminjaman){
-           return $peminjaman->detail->inventaris->nama;
+            if ($peminjaman->detail !== NULL) {
+                return $peminjaman->detail->inventaris->nama;
+            }
+            else{
+                return '-';
+            }
         })->
         addColumn('jumlah', function($peminjaman){
-            return $peminjaman->detail->jumlah;
+            if ($peminjaman->detail !== NULL) {
+                return $peminjaman->detail->jumlah;
+            }
+            else{
+                return '-';
+            }
         })->
         addColumn('tgl_pinjam', function($peminjaman){
             return Date::parse($peminjaman->tanggal_pinjam)->format('d-m-Y');

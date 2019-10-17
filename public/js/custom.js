@@ -293,3 +293,56 @@ $('body').on('click', '.btn-show', function(e){
 		}
 	});
 });
+
+// collapse menu
+$('body').on('click', '.menu-collapse', function(){
+
+	if ($(this).hasClass('collapse-active')) {
+		$('.sidebar-wrapper').css({
+			'max-width':'100%'
+		});
+		$('.sidebar-item').find('span').show();
+
+		$('.dashboard .right').removeAttr('style');
+
+		$(this).removeClass('collapse-active');
+	}
+	else{
+		$(this).addClass('collapse-active');
+
+		$('.sidebar-wrapper').css({
+			'max-width':'5%'
+		});
+
+		$('.dashboard .right').attr('style','margin-left: 12%');
+
+		$('.sidebar-item').find('span').hide();
+	}
+
+});
+
+$('body').on('submit', '#form-peminjaman', function(e){
+	e.preventDefault();
+
+	const url = $(this).attr('action'),
+	name = $(this).find('select#id_inventaris').val(),
+	jumlah = $(this).find('input#jumlah').val(),
+	pegawai = $(this).find('select#id_pegawai').val(),
+	data = {
+		id_inventaris:name,
+		jumlah:jumlah,
+		id_pegawai:pegawai
+	};
+
+
+	$.ajax({
+		url:url,
+		type:'POST',
+		data: {
+			all : JSON.stringify(data)
+		},
+		success: function(res){
+			alert('oke');
+		}
+	});
+});

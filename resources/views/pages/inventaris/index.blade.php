@@ -19,7 +19,13 @@
 									<i class="fas fa-plus"></i> Tambah Inventaris
 								</a>
 
-								<a href="{{ route('inven.excel') }}" class="btn btn-success ml-3">
+								<a href="{{ route('inven.excel') }}" class="btn btn-success ml-3"
+								@if(count($data) === 0)
+									onclick="event.preventDefault();
+									alert('Data Kosong');
+									"
+								@endif
+								>
 									<i class="fas fa-table"></i> Download Excel
 								</a>
 

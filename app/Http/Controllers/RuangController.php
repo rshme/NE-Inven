@@ -107,6 +107,12 @@ class RuangController extends Controller
     {
         $data = Ruang::findOrFail($ruang->id_ruang);
 
+        $check = \App\Inventaris::where('id_ruang', $ruang->id_ruang)->first();
+
+        if($check){
+            return response()->json(['msg'=>'Masih ada inventaris yang memakai Ruang : '.$ruang->nama_ruang], 401);
+        }
+
         $data->forceDelete();
         $data->delete();
 

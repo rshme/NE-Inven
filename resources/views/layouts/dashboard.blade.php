@@ -43,10 +43,10 @@
 		@include('layouts.partials.modal')
 
 		<div class="row dashboard">
-			<div class="col-2">
+			<div class="left">
 				@include('layouts.partials.sidebar')
 			</div>
-			<div class="col-10 content">
+			<div class="right">
 				@yield('content')
 			</div>
 		</div>

@@ -1,0 +1,27 @@
+@keyframes hideNav{
+	from{
+		left:0%;
+	}
+
+	to{
+		left:-9%;
+	}
+}
+
+@keyframes showNav{
+	from{
+		left:-9%;
+	}
+
+	to{
+		left:0%;
+	}
+}
+
+.showNav{
+	animation: showNav 2s ease forwards;
+}
+
+.hideNav{
+	animation: hideNav .5s ease forwards;
+}

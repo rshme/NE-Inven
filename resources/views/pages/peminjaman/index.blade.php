@@ -19,7 +19,13 @@
 									<i class="fas fa-plus"></i> Tambah Peminjaman
 								</a>
 
-								<a href="{{ route('peminjaman.excel') }}" class="btn btn-success ml-3">
+								<a href="{{ route('peminjaman.excel') }}" class="btn btn-success ml-3"
+								@if(count($peminjaman) === 0)
+									onclick="event.preventDefault();
+									alert('Data Kosong');
+									"
+								@endif
+								>
 									<i class="fas fa-table"></i> Download Excel
 								</a>
 

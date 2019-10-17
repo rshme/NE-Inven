@@ -110,6 +110,12 @@ class JenisController extends Controller
      */
     public function destroy(Jenis $jeni)
     {
+        $check = \App\Inventaris::where('id_jenis', $jeni->id_jenis)->first();
+
+        if($check){
+            return response()->json(['msg'=>'Masih ada inventaris yang memakai Jenis : '.$jeni->nama_jenis], 401);
+        }
+
         $data = Jenis::findOrFail($jeni->id_jenis);
 
         $data->forceDelete();

@@ -163,6 +163,8 @@ class InventarisController extends Controller
     {
         $data = Inventaris::findOrFail($inventari->id_inventaris);
 
+        $data->forceDelete();
+
         $data->delete();
 
         return response()->json([

@@ -14,8 +14,8 @@ class PeminjamanSeeder extends Seeder
     public function run()
     {
         $data = [
-        	['id_pegawai'=>1, 'tanggal_pinjam'=>Date::now()->format('Y-m-d'), 'status_peminjaman'=>'belum_kembali'],
-        	['id_pegawai'=>2, 'tanggal_pinjam'=>Date::now()->format('Y-m-d'), 'tanggal_kembali'=>'2019-12-7', 'status_peminjaman'=>'sudah_kembali'],
+        	['id_pegawai'=>1, 'tanggal_pinjam'=>Date::now()->format('Y-m-d'), 'status_peminjaman'=>'Belum Kembali'],
+        	['id_pegawai'=>2, 'tanggal_pinjam'=>Date::now()->format('Y-m-d'), 'tanggal_kembali'=>'2019-12-7', 'status_peminjaman'=>'Sudah Kembali'],
         ];
 
         foreach($data as $peminjaman){

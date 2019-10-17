@@ -13,8 +13,8 @@ class DetailPeminjamanSeeder extends Seeder
     public function run()
     {
         $data = [
-        	['id_peminjaman'=>1, 'id_inventaris'=>1, 'jumlah'=>5],
-        	['id_peminjaman'=>2, 'id_inventaris'=>1, 'jumlah'=>5],
+        	['id_peminjaman'=>1, 'id_inventaris'=>1, 'jumlah'=>10],
+        	['id_peminjaman'=>2, 'id_inventaris'=>1, 'jumlah'=>10],
         ];
 
         foreach($data as $detail){

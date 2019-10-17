@@ -32,13 +32,9 @@ CREATE TABLE `detail_pinjam` (
   KEY `detail_pinjam_id_inventaris_foreign` (`id_inventaris`),
   CONSTRAINT `detail_pinjam_id_inventaris_foreign` FOREIGN KEY (`id_inventaris`) REFERENCES `inventaris` (`id_inventaris`) ON DELETE CASCADE,
   CONSTRAINT `detail_pinjam_id_peminjaman_foreign` FOREIGN KEY (`id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `detail_pinjam` */
-
-insert  into `detail_pinjam`(`id_detail_pinjam`,`id_peminjaman`,`id_inventaris`,`jumlah`,`created_at`,`updated_at`) values 
-(1,1,2,10,'2019-10-12 06:56:44','2019-10-13 10:06:18'),
-(5,5,1,10,'2019-10-12 21:59:39','2019-10-13 07:07:31');
 
 /*Table structure for table `inventaris` */
 
@@ -69,9 +65,9 @@ CREATE TABLE `inventaris` (
 /*Data for the table `inventaris` */
 
 insert  into `inventaris`(`id_inventaris`,`id_jenis`,`id_ruang`,`id_petugas`,`nama`,`kondisi`,`keterangan`,`jumlah`,`kode_inventaris`,`tanggal_register`,`created_at`,`updated_at`) values 
-(1,1,1,1,'Laptop ACER','baik','Membeli di BEC',10,'11-1-1-1-1','2019-10-11','2019-10-12 06:56:43','2019-10-13 10:25:49'),
-(2,1,1,1,'Laptop Rog','baik','test',10,'12-1-1-1-2','2019-10-12','2019-10-12 08:02:50','2019-10-13 20:39:53'),
-(3,2,2,1,'Meja Guru','baik','as',10,'12-2-2-1-3','2019-10-12','2019-10-12 08:03:20','2019-10-14 14:50:37');
+(1,1,1,1,'Laptop ACER','baik','Membeli di BEC',10,'11-1-1-1-1','2019-10-11','2019-10-12 06:56:43','2019-10-16 21:58:41'),
+(2,1,1,1,'Laptop ROG','baik','test',10,'12-1-1-1-2','2019-10-12','2019-10-12 08:02:50','2019-10-16 21:55:11'),
+(3,2,2,1,'Meja Guru','baik','as',10,'12-2-2-1-3','2019-10-12','2019-10-12 08:03:20','2019-10-15 11:16:24');
 
 /*Table structure for table `jenis` */
 
@@ -178,19 +174,15 @@ CREATE TABLE `peminjaman` (
   `id_pegawai` int(10) unsigned NOT NULL,
   `tanggal_pinjam` date NOT NULL,
   `tanggal_kembali` date DEFAULT NULL,
-  `status_peminjaman` enum('belum_kembali','sudah_kembali') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status_peminjaman` enum('Belum Kembali','Sudah Kembali') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_peminjaman`),
   KEY `peminjaman_id_pegawai_foreign` (`id_pegawai`),
   CONSTRAINT `peminjaman_id_pegawai_foreign` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `peminjaman` */
-
-insert  into `peminjaman`(`id_peminjaman`,`id_pegawai`,`tanggal_pinjam`,`tanggal_kembali`,`status_peminjaman`,`created_at`,`updated_at`) values 
-(1,1,'2019-10-12','2019-10-13','sudah_kembali','2019-10-12 06:56:43','2019-10-13 20:39:54'),
-(5,2,'2019-10-12','2019-10-13','sudah_kembali','2019-10-12 21:59:39','2019-10-13 10:25:51');
 
 /*Table structure for table `petugas` */
 
@@ -213,7 +205,7 @@ CREATE TABLE `petugas` (
 /*Data for the table `petugas` */
 
 insert  into `petugas`(`id_petugas`,`user_id`,`id_level`,`nama_petugas`,`created_at`,`updated_at`) values 
-(1,1,1,'Panji Saputra','2019-10-12 06:56:42','2019-10-12 06:56:42'),
+(1,1,1,'Admin','2019-10-12 06:56:42','2019-10-16 11:15:38'),
 (3,4,2,'Emmy Wilson','2019-10-13 22:52:30','2019-10-13 22:52:30');
 
 /*Table structure for table `ruang` */
@@ -233,7 +225,7 @@ CREATE TABLE `ruang` (
 /*Data for the table `ruang` */
 
 insert  into `ruang`(`id_ruang`,`nama_ruang`,`kode_ruang`,`keterangan`,`created_at`,`updated_at`) values 
-(1,'Ruang Elektronika','A349D4D','Ruang Barang Elektronik','2019-10-12 06:56:43','2019-10-13 16:52:54'),
+(1,'Ruang Elektronika','A349D4D','Ruang Barang Elektronik asdfsadfdsa dsafadsfasd dsafsdfdfsf fdsafdsafasfads fsfafasdfdsfsafas fdfasfsdfdasf dfadsfdsfdas','2019-10-12 06:56:43','2019-10-15 08:43:01'),
 (2,'Ruang Peralatan Kelas','A56RD5D','Ruang Barang Peralatan Kelas','2019-10-12 06:56:43','2019-10-12 06:56:43');
 
 /*Table structure for table `users` */
@@ -254,7 +246,7 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`username`,`password`,`remember_token`,`created_at`,`updated_at`) values 
-(1,'petugas','$2y$10$8W.A4LMOll5nd8cfkv2iuu.3DT44UjH/viYlRjPHvA9AELBPSVbd.','9pKf9Sw7NfX92LkCXKsPM9zAHlr5gOoXCdIPhA6L9htaF3pPSuLzUXo0EFHW','2019-10-12 06:56:42','2019-10-12 06:56:42'),
+(1,'petugas','$2y$10$8W.A4LMOll5nd8cfkv2iuu.3DT44UjH/viYlRjPHvA9AELBPSVbd.','crhsB8d10mYihquEeDqJdaLlXVJeME5odo3pJnJX5l0xIsbjXRsBX8BmYr7g','2019-10-12 06:56:42','2019-10-12 06:56:42'),
 (2,'pegawai','$2y$10$oSyQzq4pKh0NpD2fKyCx8ekmz24k3tLvKb0ZhMscrsGJO6KR4YSfG',NULL,'2019-10-12 06:56:42','2019-10-12 06:56:42'),
 (4,'petugas2','$2y$10$kVlUhCzWUydb81xVE0AkUuCVMNCOJnUmyMa2M3HdY001JdCUmM96W','lAQ4Fmrc6VZEAj2pMM8MQMdhpVQynA6cJjlxKNHlvksYOohOu6bH7qTAe2tZ','2019-10-13 22:52:30','2019-10-13 22:52:30');
 

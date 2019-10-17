@@ -8,3 +8,16 @@
 	flex:50%;
 	max-width: 50%;
 }
+
+.dashboard .left{
+	flex:30%;
+	max-width:30%;
+}
+
+.dashboard .right{
+	margin-top: 10%;
+	flex: 70%;
+	max-width:70%;
+	padding: 20px;
+	padding-left:0;
+}
