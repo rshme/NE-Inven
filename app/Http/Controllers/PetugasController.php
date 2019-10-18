@@ -19,6 +19,12 @@ class PetugasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('check');
+    }
+    
     public function index()
     {
         $data = Petugas::all();
@@ -129,12 +135,18 @@ class PetugasController extends Controller
      */
     public function destroy(Petugas $petuga)
     {
-        $data = User::findOrFail($petuga->id_petugas);
+        $user = User::with(['petugas'])->findOrFail($petuga->user_id);
 
-        $data->forceDelete();
-        $data->delete();
+        $check = \App\Inventaris::where('id_petugas', $petuga->id_petugas)->first();
 
-        return response()->json(['msg'=>'Petugas '.$data->nama_petugas.' Berhasil Dihapus']);
+        if ($check) {
+            return response()->json(['msg'=>'Petugas '.$user->petugas->nama_petugas.' masih terdaftar di inventaris'], 401);
+        }
+
+        $user->forceDelete();
+        $user->delete();
+
+        return response()->json(['msg'=>'Petugas '.$user->petugas->nama_petugas.' Berhasil Dihapus']);
     }
 
     public function datatables()

@@ -17,6 +17,12 @@ class RuangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('check');
+    }
+    
     public function index()
     {
         $ruangs = Ruang::all();

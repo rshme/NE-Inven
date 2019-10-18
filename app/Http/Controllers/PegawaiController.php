@@ -17,6 +17,12 @@ class PegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('check');
+    }
+    
     public function index()
     {
         $data = Pegawai::all();
@@ -117,6 +123,12 @@ class PegawaiController extends Controller
     public function destroy(Pegawai $pegawai)
     {
         $data = Pegawai::findOrFail($pegawai->id_pegawai);
+
+        $check = \App\Peminjaman::where('id_pegawai', $pegawai->id_pegawai)->first();
+
+        if ($check) {
+            return response()->json(['msg'=>'Pegawai '.$data->nama_pegawai.' masih memiliki peminjaman !'], 401);
+        }
 
         $data->forceDelete();
         $data->delete();

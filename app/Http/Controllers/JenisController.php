@@ -17,6 +17,12 @@ class JenisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('check');
+    }
+    
     public function index()
     {
         $jenis = Jenis::all();

@@ -27,7 +27,7 @@
 				Aplikasi Pendataan Inventaris Barang Sekolah
 			</p>
 			<a class="btn-login" href="{{ route('getlogin') }}">
-				Mulai
+				Masuk
 			</a>
 		</div>
 	</section>

@@ -129,6 +129,7 @@ $('body').on('submit', '#form-store', function(e){
 		},
 
 		error: function(xhr){
+
 			const errors = xhr.responseJSON;
 
 			if (xhr.status === 401) {
@@ -204,6 +205,14 @@ $('body').on('submit', '#form-edit', function(e){
 
 		error: function(xhr){
 			const errors = xhr.responseJSON;
+
+			if (xhr.status === 401) {
+				Swal.fire({
+					title:'Peringatan !',
+					type:'warning',
+					text:errors.msg,
+				});
+			}
 
 			$.each(errors.errors, function(key, value){
 				$('#' + key)
@@ -321,28 +330,66 @@ $('body').on('click', '.menu-collapse', function(){
 
 });
 
-$('body').on('submit', '#form-peminjaman', function(e){
-	e.preventDefault();
+// $('body').on('submit', '#form-peminjaman', function(e){
+// 	e.preventDefault();
 
-	const url = $(this).attr('action'),
-	name = $(this).find('select#id_inventaris').val(),
-	jumlah = $(this).find('input#jumlah').val(),
-	pegawai = $(this).find('select#id_pegawai').val(),
-	data = {
-		id_inventaris:name,
-		jumlah:jumlah,
-		id_pegawai:pegawai
-	};
+// 	const url = $(this).attr('action'),
+// 	name = $(this).find('select#id_inventaris').val(),
+// 	jumlah = $(this).find('input#jumlah').val(),
+// 	pegawai = $(this).find('select#id_pegawai').val(),
+// 	store = $(this).data('store');
 
+// 	$(this).find('.form-group').removeClass('has-errors');
+// 	$('.help-block').remove();
 
-	$.ajax({
-		url:url,
-		type:'POST',
-		data: {
-			all : JSON.stringify(data)
-		},
-		success: function(res){
-			alert('oke');
-		}
-	});
-});
+// 	$.ajax({
+// 		url:url,
+// 		type:'POST',
+// 		data: {
+// 			id_inventaris: name,
+// 			jumlah: jumlah,
+// 			id_pegawai: pegawai,
+// 		},
+// 		success: function(res){
+// 			Swal.fire({
+// 				type: 'info',
+// 				title: 'Pertanyaan',
+// 				text:'Ingin Menambahkan Peminjaman Lagi Untuk Pegawai Ini ?',
+// 				showCancelButton:true,
+// 				confirmButtonColor:'#475CDD',
+// 				cancelButtonColor:'#8A8A8A',
+// 				confirmButtonText:'Ya',
+// 				cancelButtonText: 'Tidak'
+// 			})
+// 			.then((res)=>{
+// 				if (res.value) {
+// 					$.ajax({
+// 						url:store,
+// 						type:'POST',
+// 						data:null,
+// 						success: function(res){
+// 							console.log(res.data);
+// 						}
+// 					});
+// 				}
+// 				else{
+// 					$('#mymodal').modal('hide');
+// 					$('#tablePeminjaman').DataTable().ajax.reload();
+// 				}
+
+// 			});
+// 		},
+// 		error: function(xhr){
+// 			const errors = xhr.responseJSON;
+
+// 			$.each(errors.errors, function(key, value){
+// 				$('#' + key)
+// 				.closest('.form-group')
+// 				.addClass('has-errors')
+// 				.append(
+// 					`<span class="help-block">`+value+`</span>`
+// 				)
+// 			});
+// 		}
+// 	});
+// });

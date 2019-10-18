@@ -36,7 +36,7 @@
 		<input type="text" name="jumlah" value="{{ $data->detail->jumlah }}" class="form-control" id="jumlah" autocomplete="off">
 	</div>
 
-	<div class="form-group">
+{{-- 	<div class="form-group">
 		<label for="status_peminjaman">
 			Status Pengembalian
 		</label>
@@ -50,7 +50,7 @@
 				<option value="Belum Kembali">Belum Kembali</option>
 			@endif
 		</select>
-	</div>
+	</div> --}}
 
 	<div class="d-flex">
 		<button type="submit" class="btn btn-primary ml-auto" id="action-primary">Edit</button>

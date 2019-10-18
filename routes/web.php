@@ -15,10 +15,7 @@ Route::get('/', function () {
     return view('landing');
 })->name('landing')->middleware('guest');
 
-Route::get('/dashboard', function(){
-	$properties = \App\Inventaris::orderBy('updated_at', 'desc')->get();
-	return view('welcome',compact('properties'));
-})->middleware('auth');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::group(['prefix'=>'auth'], function(){
 	Route::get('login', 'AuthController@getLogin')->name('getlogin');
@@ -56,7 +53,15 @@ Route::get('datainventaris', 'InventarisController@datatables')->name('inventari
 Route::get('/inventaris/export/excel', 'InventarisController@excel')->name('inven.excel');
 Route::get('/inventaris/export/pdf', 'InventarisController@pdf')->name('inventaris.pdf');
 
-Route::resource('level', 'LevelController');
-Route::get('datalevel', 'LevelController@datatables')->name('level.data');
-Route::get('/level/export/excel', 'LevelController@excel')->name('level.excel');
-Route::get('/level/export/pdf', 'LevelController@pdf')->name('level.pdf');
+Route::resource('pengembalian', 'PengembalianController');
+Route::get('datapengembalian', 'PengembalianController@datatables')->name('pengembalian.data');
+Route::get('/pengembalian/export/excel', 'PengembalianController@excel')->name('pengembalian.excel');
+Route::get('/pengembalian/export/pdf', 'PengembalianController@pdf')->name('pengembalian.pdf');
+
+// Route::resource('level', 'LevelController');
+// Route::get('datalevel', 'LevelController@datatables')->name('level.data');
+// Route::get('/level/export/excel', 'LevelController@excel')->name('level.excel');
+// Route::get('/level/export/pdf', 'LevelController@pdf')->name('level.pdf');
+
+// cookie
+Route::post('/select', 'CookieController@store')->name('post.cookie');

@@ -6,19 +6,91 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="row">
-						@foreach($properties as $property)
-							<div class="col-3">
-								<div class="card">
-									<div class="card-header">
-										<h5 class="text-center" style="font-weight:bold;">{{ $property->nama }}</h5>
-									</div>
-									<div class="card-body">
-										<p>Jumlah : {{ $property->jumlah  }}</p>
-										<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse($property->updated_at)->format('d F Y') }}</p>
-									</div>
+						<div class="col-3 mb-3">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="text-center" style="font-weight:bold;">
+									<i class="fas fa-box"></i><br> Inventaris
+									</h5>
+								</div>
+								<div class="card-body">
+									<p>Jumlah : {{ count(\App\Inventaris::all()) }}</p>
+									<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse(\App\Inventaris::orderBy('updated_at', 'desc')->first()['updated_at'])->format('d F Y') }}</p>
 								</div>
 							</div>
-						@endforeach
+						</div>
+
+						<div class="col-3 mb-3">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="text-center" style="font-weight:bold;"><i class="fas fa-book"></i><br> Jenis Inventaris</h5>
+								</div>
+								<div class="card-body">
+									<p>Jumlah : {{ count(\App\Jenis::all()) }}</p>
+									<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse(\App\Jenis::orderBy('updated_at', 'desc')->first()['updated_at'])->format('d F Y') }}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-3 mb-3">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="text-center" style="font-weight:bold;"><i class="fas fa-home"></i><br> Ruangan</h5>
+								</div>
+								<div class="card-body">
+									<p>Jumlah : {{ count(\App\Ruang::all()) }}</p>
+									<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse(\App\Ruang::orderBy('updated_at', 'desc')->first()['updated_at'])->format('d F Y') }}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-3 mb-3">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="text-center" style="font-weight:bold;"><i class="fas fa-user"></i><br> Pegawai</h5>
+								</div>
+								<div class="card-body">
+									<p>Jumlah : {{ count(\App\Pegawai::all()) }}</p>
+									<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse(\App\Pegawai::orderBy('updated_at', 'desc')->first()['updated_at'])->format('d F Y') }}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-3 mb-3">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="text-center" style="font-weight:bold;"><i class="fas fa-user"></i><br> Petugas</h5>
+								</div>
+								<div class="card-body">
+									<p>Jumlah : {{ count(\App\Petugas::all()) }}</p>
+									<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse(\App\Petugas::orderBy('updated_at', 'desc')->first()['updated_at'])->format('d F Y') }}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-3 mb-3">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="text-center" style="font-weight:bold;"><i class="fas fa-clipboard"></i><br> Peminjaman</h5>
+								</div>
+								<div class="card-body">
+									<p>Jumlah : {{ count(\App\Peminjaman::where('status_peminjaman', 'Belum Kembali')->get()) }}</p>
+									<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse(\App\Peminjaman::where('status_peminjaman', 'Sudah Kembali')->orderBy('updated_at', 'desc')->first()['updated_at'])->format('d F Y') }}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-3 mb-3">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="text-center" style="font-weight:bold;"><i class="fas fa-clipboard"></i><br> Pengembalian</h5>
+								</div>
+								<div class="card-body">
+									<p>Jumlah : {{ count(\App\Peminjaman::where('status_peminjaman', 'Sudah Kembali')->get()) }}</p>
+									<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse(\App\Peminjaman::where('status_peminjaman', 'Belum Kembali')->orderBy('updated_at', 'desc')->first()['updated_at'])->format('d F Y') }}</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

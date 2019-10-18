@@ -1,7 +1,5 @@
-<form action="{{ route('peminjaman.store') }}" class="form-horizontal" method="POST" id="form-peminjaman">
+<form action="{{ route('peminjaman.store') }}" class="form-horizontal" method="POST" id="form-store">
 	@csrf
-
-	<label>Barang yang dipilih : </label>
 
 	<div class="form-group">
 		<label for="id_inventaris">
@@ -21,10 +19,6 @@
 		</label>
 		<input type="text" name="jumlah" class="form-control" id="jumlah" autocomplete="off">
 	</div>
-
-	<button class="btn btn-primary text-center mb-2" style="width:100%" id="btn-save">
-		<i class="fas fa-plus"></i> Tambah Pinjaman
-	</button>
 
 	<div class="form-group">
 		<label for="id_pegawai">

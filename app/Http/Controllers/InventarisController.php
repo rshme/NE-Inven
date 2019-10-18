@@ -20,6 +20,12 @@ class InventarisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('check');
+    }
+    
     public function index()
     {
         $data = Inventaris::all();
@@ -64,7 +70,7 @@ class InventarisController extends Controller
 
         $inven['kode_inventaris'] = 
 
-        Date::now()->format('d')
+        Date::now()->format('dmy')
         .'-'.
         \App\Jenis::where('id_jenis', $request->id_jenis)->first()['id_jenis']
         .'-'.
@@ -161,15 +167,35 @@ class InventarisController extends Controller
      */
     public function destroy(Inventaris $inventari)
     {
-        $data = Inventaris::findOrFail($inventari->id_inventaris);
+        $data = Inventaris::with(['detail'])->findOrFail($inventari->id_inventaris);
 
-        $data->forceDelete();
+        $detail = \App\DetailPinjam::orderBy('updated_at', 'desc')->where('id_inventaris', $inventari->id_inventaris)->first();
 
-        $data->delete();
+        if ($detail) {
 
-        return response()->json([
-            'msg'=> 'Barang '.$data->nama.' Dihapus'
-        ]);
+            $peminjaman = \App\Peminjaman::where('id_peminjaman', $detail->id_peminjaman)->first();
+
+            if ($peminjaman->status_peminjaman === 'Sudah Kembali') {
+                $peminjaman->forceDelete();
+                $peminjaman->delete();
+                $data->delete();
+
+                return response()->json([
+                    'msg'=> 'Barang '.$data->nama.' Dihapus'
+                ]);
+            }
+            else if($peminjaman->status_peminjaman === 'Belum Kembali'){
+                return response()->json(['msg'=>$data->nama.' sedang dipinjam !'], 401);
+            }
+        }
+
+        else{
+            $data->delete();
+            
+           return response()->json([
+                'msg'=> 'Barang '.$data->nama.' Dihapus'
+            ]);
+        }
     }
 
     public function datatables()

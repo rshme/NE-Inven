@@ -16,6 +16,10 @@ section#hero{
 	position:relative;
 }
 
+section#property{
+	margin-left: -2.5%;
+}
+
 section#hero .content{
 	text-align:center;
 	max-width: 50%;
