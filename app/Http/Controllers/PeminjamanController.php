@@ -27,7 +27,7 @@ class PeminjamanController extends Controller
     
     public function index()
     {
-        $peminjaman = Peminjaman::where('status_peminjaman', 'Belum Kembali')->get();
+        $peminjaman = Peminjaman::where('tanggal_kembali', NULL)->get();
 
         return view('pages.peminjaman.index', compact('peminjaman'));
     }
@@ -138,6 +138,27 @@ class PeminjamanController extends Controller
         $jumlah = NULL;
         $tgl_kembali = NULL;
 
+            // jika barang ganti
+            if ($request->id_inventaris !== $target->detail->id_inventaris) {
+                $before = \App\Inventaris::where('id_inventaris', $target->detail->id_inventaris)->first();
+                $after = \App\Inventaris::where('id_inventaris', $request->id_inventaris)->first();
+
+                $before->update([
+                    'jumlah'=>$before->jumlah + $target->detail->jumlah
+                ]);
+
+                if ($after->jumlah < $request->jumlah) {
+                   $response = [
+                        'msg'=>'Jumlah melebihi stok barang !'
+                    ];
+
+                    return response()->json($response, 401);
+                }
+                $after->update([
+                    'jumlah'=>$after->jumlah - $request->jumlah
+                ]);
+            }
+
             // jika jumlah lebih besar dari sebelumnya
             if ($request->jumlah >= $target->detail->jumlah) {
                 $res = $request->jumlah - $target->detail->jumlah;
@@ -228,21 +249,30 @@ class PeminjamanController extends Controller
         // ambil barang
         $barang = \App\Inventaris::where('id_inventaris', $data->detail->id_inventaris)->first();
 
-        if ($data->status_peminjaman === 'Sudah Kembali') {
-            
-            $data->forceDelete();
-            $data->delete();
+        $barang->update([
+            'jumlah'=>$barang->jumlah + $data->detail->jumlah
+        ]);
 
-            return response()->json(['msg'=>'Peminjaman '.$data->pegawai->nama_pegawai.' Berhasil Dihapus']);
-        }
-        else{
-            return response()->json(['msg'=>'Kembalikan Barang Terlebih Dahulu'], 401);
-        }
+        $data->forceDelete();
+        $data->delete();
+
+        return response()->json(['msg'=>'Peminjaman '.$data->pegawai->nama_pegawai.' Berhasil Dihapus']);
+
+        // if ($data->status_peminjaman === 'Sudah Kembali') {
+            
+        //     $data->forceDelete();
+        //     $data->delete();
+
+        //     return response()->json(['msg'=>'Peminjaman '.$data->pegawai->nama_pegawai.' Berhasil Dihapus']);
+        // }
+        // else{
+        //     return response()->json(['msg'=>'Kembalikan Barang Terlebih Dahulu'], 401);
+        // }
     }
 
     public function datatables()
     {
-        $peminjaman = Peminjaman::query()->with(['pegawai', 'detail'])->where('status_peminjaman', 'Belum Kembali')->get();
+        $peminjaman = Peminjaman::query()->with(['pegawai', 'detail'])->where('tanggal_kembali', NULL)->get();
 
         return DataTables::of($peminjaman)->
         addColumn('pegawai', function($peminjaman){
@@ -266,12 +296,6 @@ class PeminjamanController extends Controller
         })->
         addColumn('tgl_pinjam', function($peminjaman){
             return Date::parse($peminjaman->tanggal_pinjam)->format('d-m-Y');
-        })->
-        addColumn('tgl_kembali', function($peminjaman){
-            if ($peminjaman->tanggal_kembali === NULL) {
-                return '-';
-            }
-            return Date::parse($peminjaman->tanggal_kembali)->format('d-m-Y');
         })->
         addColumn('action', function($peminjaman){
             return view('layouts.partials.actions.peminjaman_action', [

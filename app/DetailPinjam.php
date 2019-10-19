@@ -12,7 +12,7 @@ class DetailPinjam extends Model
 
     protected $guarded = [
         'id_detail_pinjam'
-    ]; 
+    ];
 
     public function inventaris()
     {
@@ -23,4 +23,5 @@ class DetailPinjam extends Model
     {
     	return $this->belongsTo(Peminjaman::class, 'id_peminjaman');
     }
+
 }

@@ -50,13 +50,19 @@ Route::get('/peminjaman/export/pdf', 'PeminjamanController@pdf')->name('peminjam
 
 Route::resource('inventaris', 'InventarisController');
 Route::get('datainventaris', 'InventarisController@datatables')->name('inventaris.data');
-Route::get('/inventaris/export/excel', 'InventarisController@excel')->name('inven.excel');
+Route::get('/inventaris/export/excel', 'InventarisController@excel')->name('inventaris.excel');
+Route::get('/inventaris/periodeexport/excel', 'InventarisController@excelPeriode')->name('inventaris.excel.periode');
 Route::get('/inventaris/export/pdf', 'InventarisController@pdf')->name('inventaris.pdf');
 
 Route::resource('pengembalian', 'PengembalianController');
 Route::get('datapengembalian', 'PengembalianController@datatables')->name('pengembalian.data');
 Route::get('/pengembalian/export/excel', 'PengembalianController@excel')->name('pengembalian.excel');
 Route::get('/pengembalian/export/pdf', 'PengembalianController@pdf')->name('pengembalian.pdf');
+Route::match(['get', 'post'], '/search', 'PengembalianController@search')->name('pengembalian.search');
+
+// Route::get('/report/periode/excel', function(){
+// 	return view('layouts.partials.periode_show');
+// })->name('periode.show');
 
 // Route::resource('level', 'LevelController');
 // Route::get('datalevel', 'LevelController@datatables')->name('level.data');

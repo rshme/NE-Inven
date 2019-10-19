@@ -15,7 +15,7 @@
 								</div>
 								<div class="card-body">
 									<p>Jumlah : {{ count(\App\Inventaris::all()) }}</p>
-									<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse(\App\Inventaris::orderBy('updated_at', 'desc')->first()['updated_at'])->format('d F Y') }}</p>
+									<p>Terakhir Diperbaharui : <br>{{ \Jenssegers\Date\Date::parse(\App\Inventaris::orderBy('created_at', 'desc')->first()['created_at'])->format('d F Y') }}</p>
 								</div>
 							</div>
 						</div>

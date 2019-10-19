@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InventarisRequest as InvenReq;
+use App\Http\Requests\PeriodeRequest;
 use App\Inventaris;
 use App\Jenis;
 use App\Ruang;
@@ -11,6 +12,7 @@ use DataTables;
 use Date;
 use Excel;
 use App\Exports\InvenExport;
+use App\Exports\PeriodeInvenExport;
 use PDF;
 
 class InventarisController extends Controller
@@ -176,13 +178,16 @@ class InventarisController extends Controller
             $peminjaman = \App\Peminjaman::where('id_peminjaman', $detail->id_peminjaman)->first();
 
             if ($peminjaman->status_peminjaman === 'Sudah Kembali') {
-                $peminjaman->forceDelete();
-                $peminjaman->delete();
+
+                $allDetail = \App\DetailPinjam::where('id_inventaris', $inventari->id_inventaris)->pluck('id_peminjaman');
+
+                $allPeminjaman = \App\Peminjaman::whereIn('id_peminjaman', $allDetail)->get(['id_peminjaman']);
+
+                $data->forceDelete();
                 $data->delete();
 
-                return response()->json([
-                    'msg'=> 'Barang '.$data->nama.' Dihapus'
-                ]);
+                \App\Peminjaman::destroy($allPeminjaman->toArray());
+
             }
             else if($peminjaman->status_peminjaman === 'Belum Kembali'){
                 return response()->json(['msg'=>$data->nama.' sedang dipinjam !'], 401);
@@ -242,6 +247,14 @@ class InventarisController extends Controller
     public function excel()
     {
         return Excel::download(new InvenExport, 'inventaris.xlsx');
+    }
+
+    public function excelPeriode(PeriodeRequest $request)
+    {
+        if ($request->begin > $request->until) {
+            return response()->json(['msg'=>'Tanggal sampai lebih dari tanggal mulai'], 401);
+        }
+        return Excel::download(new PeriodeInvenExport($request->begin, $request->until), 'inventaris.xlsx');
     }
 
     public function pdf()

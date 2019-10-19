@@ -58,6 +58,9 @@
 		<script src="{{ asset('js/custom.js') }}"></script>
 		@stack('script')
 		<script>
+
+			$.fn.dataTable.ext.errMode = 'none';
+			
 			// printThis
 			$('body').on('click', '#btn-print', function(e){
 

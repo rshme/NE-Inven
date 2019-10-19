@@ -11,10 +11,6 @@
       <div class="modal-body">
         
       </div>
-      {{-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="action-secondary">Tutup</button>
-        <button type="submit" class="btn btn-primary" id="action-primary"></button>
-      </div> --}}
     </div>
   </div>
 </div>

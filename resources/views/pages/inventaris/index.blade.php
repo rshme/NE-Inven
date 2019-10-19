@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+
+@include('layouts.partials.periode_show')
+
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-12">
@@ -19,23 +22,25 @@
 									<i class="fas fa-plus"></i> Tambah Inventaris
 								</a>
 
-								<a href="{{ route('inven.excel') }}" class="btn btn-success ml-3"
-								@if(count($data) === 0)
-									onclick="event.preventDefault();
-									alert('Data Kosong');
-									"
+								@if(auth()->user()->petugas->id_level === 1)
+									<div class="dropdown ml-3">
+									  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    <i class="fas fa-able"></i> Download Excel
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									    <a class="dropdown-item" id="print-periode">Periode</a>
+									    <a class="dropdown-item" href="{{ route('inventaris.excel') }}">Semua</a>
+									  </div>
+									</div>
+
+									<a href="{{ route('inventaris.pdf') }}" class="btn btn-danger ml-3">
+										<i class="fas fa-file-pdf"></i> Download PDF
+									</a>
+
+									<a href="#" class="btn btn-warning ml-3" id="btn-print" data-title="Data Inventaris">
+										<i class="fas fa-print"></i> Print Laporan
+									</a>
 								@endif
-								>
-									<i class="fas fa-table"></i> Download Excel
-								</a>
-
-								<a href="{{ route('inventaris.pdf') }}" class="btn btn-danger ml-3">
-									<i class="fas fa-file-pdf"></i> Download PDF
-								</a>
-
-								<a href="#" class="btn btn-warning ml-3" id="btn-print" data-title="Data Inventaris">
-									<i class="fas fa-print"></i> Print Laporan
-								</a>
 							</div>
 						</div>
 					</div>

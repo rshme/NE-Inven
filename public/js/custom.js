@@ -330,6 +330,46 @@ $('body').on('click', '.menu-collapse', function(){
 
 });
 
+// search peminjaman
+$('body').on('change', 'select.pegawai', function(e){
+
+	const url = $(this).data('url'),
+	selected = $(this).val();
+
+	$.ajax({
+		url: url,
+		type:'POST',
+		data:{
+			q : selected
+		},
+		success: function(res){
+			$('#pengembalian').html(res);
+		},
+		error: function(xhr){
+			$('#pengembalian').html('');
+
+			Swal.fire({
+				title:'Peringatan !',
+				type:'warning',
+				text:xhr.responseJSON.msg,
+			});
+		}
+	})
+
+});
+
+$('body').on('click', 'a#print-periode', function(e){
+	e.preventDefault();
+
+	$('#modalPeriode').modal('show');
+});
+
+// $('body').on('submit', '#form-periode', function(e){
+// 	e.preventDefault();
+
+// 	$('#modalPeriode').modal('show');
+// });
+
 // $('body').on('submit', '#form-peminjaman', function(e){
 // 	e.preventDefault();
 
