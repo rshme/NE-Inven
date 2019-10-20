@@ -1,6 +1,11 @@
 @import './tablet.css';
 @import './animation.css';
 
+@font-face{
+	font-family: 'Capriola';
+	src:url('../assets/fonts/Capriola-Regular.ttf');
+}
+
 html, body{
 	overflow-x:hidden;
 }

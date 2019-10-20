@@ -4,6 +4,8 @@
 <a class="btn-edit" title="Peminjaman {{ $model->pegawai->nama_pegawai }}" href="{{$url_edit}}">
 	<i class="fas fa-pen text-success"></i>
 </a>
-<a id="btn-delete" title="Peminjaman {{ $model->pegawai->nama_pegawai }}" href="{{ $url_delete }}">
-	<i class="fas fa-trash text-danger"></i>
-</a>
+@if(auth()->user()->petugas->id_level === 1)
+	<a id="btn-delete" title="Peminjaman {{ $model->pegawai->nama_pegawai }}" href="{{ $url_delete }}">
+		<i class="fas fa-trash text-danger"></i>
+	</a>
+@endif

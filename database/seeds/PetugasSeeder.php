@@ -12,8 +12,13 @@ class PetugasSeeder extends Seeder
      */
     public function run()
     {
-        $data = ['user_id'=>1, 'nama_petugas'=>'Panji Saputra', 'id_level'=>1];
+        $data = [
+            ['user_id'=>1, 'nama_petugas'=>'Panji Saputra', 'id_level'=>1],
+            ['user_id'=>2, 'nama_petugas'=>'John Doe', 'id_level'=>2],
+        ];
 
-        Petugas::create($data);
+        foreach ($data as $petugas) {
+            Petugas::create($petugas);
+        }
     }
 }

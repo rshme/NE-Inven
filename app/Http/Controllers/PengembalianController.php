@@ -54,6 +54,10 @@ class PengembalianController extends Controller
         $target = \App\DetailPinjam::with(['peminjaman', 'inventaris'])->orderBy('created_at', 'desc')->where('id_inventaris', $request->id_inventaris)->where('jumlah', '>', 0)->first();
         $barang = $target->inventaris;
 
+        if ($request->jumlah < 1) {
+            return response()->json(['msg'=>'Jumlah tidak valid !'], 401);
+        }
+
         if ($request->jumlah > $target->jumlah) {
             return response()->json(['msg'=>'Jumlah tidak sesuai !'], 401);
         }
@@ -80,50 +84,7 @@ class PengembalianController extends Controller
         }
 
         return response()->json(['msg'=>'Peminjaman '.$target->peminjaman->pegawai->nama_pegawai.' telah dikembalikan sebanyak '.$request->jumlah]);
-
-       // $tgl_pinjam = Date::now()->format('Y-m-d');
-
-       //  $barang = \App\Inventaris::where('id_inventaris', $request->id_inventaris)->first();
-
-       //  if ($barang->jumlah >= $request->jumlah) {
-
-       //      $peminjaman = Peminjaman::create([
-       //      'id_pegawai'=>$request->id_pegawai,
-       //      'tanggal_pinjam'=>$tgl_pinjam,
-       //      ]);
-
-       //      $peminjaman->detail()->create([
-       //          'id_peminjaman'=>$peminjaman->id_peminjaman,
-       //          'id_inventaris'=>$request->id_inventaris,
-       //          'jumlah'=> $request->jumlah
-       //      ]);
-
-       //      return response()->json([
-       //          'msg'=>'Berhasil Meminjamkan Barang Kepada ' . $peminjaman->pegawai->nama_pegawai
-       //      ]);
-       //  }
-       //  else{
-
-       //      return response()->json(['msg'=>'Jumlah melebihi stok barang !'], 401);
-
-            // if ($barang->jumlah > 0) {
-            //     $peminjaman = Peminjaman::create([
-            //     'id_pegawai'=>$request->id_pegawai,
-            //     'tanggal_pinjam'=>$tgl_pinjam,
-            //     ]);
-
-            //     $peminjaman->detail()->create([
-            //         'id_peminjaman'=>$peminjaman->id_peminjaman,
-            //         'id_inventaris'=>$request->id_inventaris,
-            //         'jumlah'=> $barang->jumlah
-            //     ]);
-
-            //     return response()->json(['msg'=>'Hanya Terpinjam '.$barang->jumlah.' Karena Barang Sudah Habis']);
-            // }
-            // else{
-            //     return response()->json(['msg'=>'Stok Barang '.$barang->nama.' Sudah Habis'], 401);
-            // }
-        // }
+        
     }
 
     /**
@@ -132,9 +93,9 @@ class PengembalianController extends Controller
      * @param  \App\Peminjaman  $peminjaman
      * @return \Illuminate\Http\Response
      */
-    public function show(Peminjaman $peminjaman)
+    public function show(Peminjaman $pengembalian)
     {
-        $data = Peminjaman::with(['detail', 'pegawai'])->findOrFail($peminjaman->id_peminjaman);
+        $data = Peminjaman::with(['detail', 'pegawai'])->findOrFail($pengembalian->id_peminjaman);
 
         return view('pages.pengembalian.show', compact('data'));
     }
@@ -145,9 +106,9 @@ class PengembalianController extends Controller
      * @param  \App\Peminjaman  $peminjaman
      * @return \Illuminate\Http\Response
      */
-    public function edit(Peminjaman $peminjaman)
+    public function edit(Peminjaman $pengembalian)
     {
-        $data = Peminjaman::findOrFail($peminjaman->id_peminjaman);
+        $data = Peminjaman::findOrFail($pengembalian->id_peminjaman);
 
         return view('pages.pengembalian.edit', compact('data'));
     }
@@ -159,14 +120,21 @@ class PengembalianController extends Controller
      * @param  \App\Peminjaman  $peminjaman
      * @return \Illuminate\Http\Response
      */
-    public function update(PeminjamanRequest $request, Peminjaman $peminjaman)
+    public function update(PeminjamanRequest $request, Peminjaman $pengembalian)
     {
-        $target = Peminjaman::findOrFail($peminjaman->id_peminjaman);
+        $target = Peminjaman::findOrFail($pengembalian->id_peminjaman);
 
         $barang = \App\Inventaris::where('id_inventaris', $request->id_inventaris)->first();
 
         $jumlah = NULL;
         $tgl_kembali = NULL;
+
+        if ($request->jumlah < 1) {
+            return response()->json(['msg'=>'Jumlah tidak valid !'], 401);
+        }
+        if ($request->status_peminjaman === 'Belum Kembali') {
+            $tgl_kembali = NULL;
+        }
 
             // jika jumlah lebih besar dari sebelumnya
             if ($request->jumlah >= $target->detail->jumlah) {
@@ -211,7 +179,7 @@ class PengembalianController extends Controller
                 ];
             }
 
-        // jika status sudah kembali
+        //jika status sudah kembali
         // if ($request->status_peminjaman === 'Sudah Kembali') {
             
         //     if ($request->jumlah > $target->detail->jumlah || $request->jumlah < $target->detail->jumlah) {

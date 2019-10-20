@@ -20,7 +20,7 @@ class PegawaiController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check');
+       $this->middleware(['check', 'admin']);
     }
     
     public function index()

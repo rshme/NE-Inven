@@ -12,8 +12,14 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $data = ['username'=>'petugas', 'password'=>bcrypt('petugas')];
+        $data = [
+            ['username'=>'admin', 'password'=>bcrypt('admin')],
+            ['username'=>'petugas', 'password'=>bcrypt('petugas')],
+        ];
         
-        User::create($data);
+        foreach($data as $petugas){
+            User::create($petugas);
+        }
+
     }
 }

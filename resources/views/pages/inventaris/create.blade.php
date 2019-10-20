@@ -55,7 +55,7 @@
 		<label for="jumlah">
 			Jumlah
 		</label>
-		<input type="text" name="jumlah" class="form-control" id="jumlah" autocomplete="off">
+		<input type="number" min="1" name="jumlah" class="form-control" id="jumlah" autocomplete="off">
 	</div>
 
 	<div class="d-flex">

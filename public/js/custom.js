@@ -362,13 +362,36 @@ $('body').on('click', 'a#print-periode', function(e){
 	e.preventDefault();
 
 	$('#modalPeriode').modal('show');
+
+	$('#form-periode').attr('action', $(this).data('url'));
+
+	$('#form-periode').get(0).reset();
+
 });
 
-// $('body').on('submit', '#form-periode', function(e){
-// 	e.preventDefault();
+$('body').on('change', 'input#until', function(){
+	const begin = $('input#begin').val();
+	const until = $(this).val();
 
-// 	$('#modalPeriode').modal('show');
-// });
+	if (until < begin) {
+		Swal.fire({
+			type:'warning',
+			title: 'Peringatan !',
+			text: 'Tanggal tidak sesuai !'
+		})
+
+		$('#btn-download').attr('disabled', true);
+	}
+	else{
+		$('#btn-download').attr('disabled', false);
+	}
+});
+
+$('body').on('submit', '#form-periode', function(){
+
+	$('#modalPeriode').modal('hide');
+	
+});
 
 // $('body').on('submit', '#form-peminjaman', function(e){
 // 	e.preventDefault();

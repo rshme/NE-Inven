@@ -3,7 +3,7 @@
 		<div class="col-md-6">
 			<p class="mb-3">Nama Peminjam :</p>
 			<p class="mb-3">Barang Yang Dipinjam :</p>
-			<p class="mb-3">Jumlah :</p>
+			<p class="mb-3">Sisa Pinjaman :</p>
 			<p class="mb-3">Tanggal Peminjaman :</p>
 			<p class="mb-3">Tanggal Pengembalian :</p>
 			<p class="mb-3">Status Pengembalian:</p>

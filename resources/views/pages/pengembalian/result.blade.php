@@ -1,6 +1,6 @@
 	<div class="form-group">
 		<label for="id_inventaris">
-			Barang
+			Barang yang dipijam
 		</label>
 		<select name="id_inventaris" class="custom-select" id="id_inventaris">
 			<option selected value="">Pilih Barang</option>
@@ -16,5 +16,5 @@
 		<label for="jumlah">
 			Jumlah
 		</label>
-		<input type="text" name="jumlah" class="form-control" id="jumlah" autocomplete="off">
+		<input type="number" min="1" name="jumlah" class="form-control" id="jumlah" autocomplete="off">
 	</div>

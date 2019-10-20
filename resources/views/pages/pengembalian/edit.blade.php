@@ -1,4 +1,4 @@
-<form action="{{ route('peminjaman.update', $data->id_peminjaman) }}" class="form-horizontal" method="POST" id="form-edit">
+<form action="{{ route('pengembalian.update', $data->id_peminjaman) }}" class="form-horizontal" method="POST" id="form-edit">
 	{{ method_field('PUT') }}
 	@csrf
 	<div class="form-group">
@@ -33,24 +33,17 @@
 		<label for="jumlah">
 			Jumlah
 		</label>
-		<input type="text" name="jumlah" value="{{ $data->detail->jumlah }}" class="form-control" id="jumlah" autocomplete="off">
+		<input type="number" min="1" name="jumlah" value="{{ $data->detail->jumlah }}" class="form-control" id="jumlah" autocomplete="off">
 	</div>
 
-{{-- 	<div class="form-group">
+	<div class="form-group">
 		<label for="status_peminjaman">
-			Status Pengembalian
+			Status Peminjaman
 		</label>
 		<select name="status_peminjaman" class="custom-select" id="status_peminjaman">
-			<option selected value="{{ $data->status_peminjaman }}">
-				{{ str_replace('_', ' ', ucfirst($data->status_peminjaman)) }}
-			</option>
-			@if($data->status_peminjaman === 'Belum Kembali')
-				<option value="Sudah Kembali">Sudah Kembali</option>
-			@elseif($data->status_peminjaman === 'Sudah Kembali')
-				<option value="Belum Kembali">Belum Kembali</option>
-			@endif
+			<option value="Belum Kembali">Belum Kembali</option>
 		</select>
-	</div> --}}
+	</div>
 
 	<div class="d-flex">
 		<button type="submit" class="btn btn-primary ml-auto" id="action-primary">Edit</button>

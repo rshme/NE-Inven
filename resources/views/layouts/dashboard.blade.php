@@ -14,6 +14,8 @@
 		</head>
 	<body>
 
+		@include('layouts.partials.modal_periode')
+
 		<div class="header">
 			<div class="left">
 				<h3>NE ~ Inven</h3>

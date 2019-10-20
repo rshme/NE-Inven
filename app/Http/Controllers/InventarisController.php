@@ -86,6 +86,10 @@ class InventarisController extends Controller
 
         $inven['id_petugas'] = auth()->user()->petugas->id_petugas;
 
+        if ($request->jumlah < 1) {
+            return response()->json(['msg'=>'Jumlah tidak valid !'], 401);
+        }
+
         if (!$find) {
             $data = Inventaris::create($inven);
 
@@ -154,6 +158,10 @@ class InventarisController extends Controller
         $kode = implode('-', $target);
 
         $data['kode_inventaris'] = $kode;
+
+        if ($request->jumlah < 1) {
+            return response()->json(['msg'=>'Jumlah tidak valid !'], 401);
+        }
 
         $inven->update($data);
 
@@ -251,10 +259,9 @@ class InventarisController extends Controller
 
     public function excelPeriode(PeriodeRequest $request)
     {
-        if ($request->begin > $request->until) {
-            return response()->json(['msg'=>'Tanggal sampai lebih dari tanggal mulai'], 401);
-        }
-        return Excel::download(new PeriodeInvenExport($request->begin, $request->until), 'inventaris.xlsx');
+        $begin = str_replace('-', '', Date::parse($request->begin)->format('dmy'));
+        $until = str_replace('-','', Date::parse($request->until)->format('dmy'));
+        return Excel::download(new PeriodeInvenExport($request->begin, $request->until), 'inventaris('.$begin.' - '.$until.').xlsx');
     }
 
     public function pdf()
@@ -264,5 +271,17 @@ class InventarisController extends Controller
         $pdf = PDF::loadView('layouts.partials.exports.pdf.inventaris', compact('inventaris'));
 
         return $pdf->download('inventaris.pdf');
+    }
+
+    public function pdfPeriode(PeriodeRequest $request)
+    {
+        $inventaris = Inventaris::where('tanggal_register', '>=', $request->begin)->where('tanggal_register', '<=', $request->until)->with(['petugas', 'jenis', 'ruang'])->get();
+
+        $begin = str_replace('-', '', Date::parse($request->begin)->format('dmy'));
+        $until = str_replace('-','', Date::parse($request->until)->format('dmy'));
+
+        $pdf = PDF::loadView('layouts.partials.exports.pdf.inventaris', compact('inventaris'));
+
+        return $pdf->download('inventaris('.$begin.' - '.$until.').pdf');
     }
 }

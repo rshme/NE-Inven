@@ -55,11 +55,16 @@ class PeminjamanController extends Controller
 
         $barang = \App\Inventaris::where('id_inventaris', $request->id_inventaris)->first();
 
+        if ($request->jumlah < 1) {
+            return response()->json(['msg'=>'Jumlah tidak valid !'], 401);
+        }
+
         if ($barang->jumlah >= $request->jumlah) {
 
             $peminjaman = Peminjaman::create([
             'id_pegawai'=>$request->id_pegawai,
             'tanggal_pinjam'=>$tgl_pinjam,
+            'status_peminjaman'=>$request->status_peminjaman
             ]);
 
             $peminjaman->detail()->create([
@@ -138,26 +143,32 @@ class PeminjamanController extends Controller
         $jumlah = NULL;
         $tgl_kembali = NULL;
 
-            // jika barang ganti
-            if ($request->id_inventaris !== $target->detail->id_inventaris) {
-                $before = \App\Inventaris::where('id_inventaris', $target->detail->id_inventaris)->first();
-                $after = \App\Inventaris::where('id_inventaris', $request->id_inventaris)->first();
-
-                $before->update([
-                    'jumlah'=>$before->jumlah + $target->detail->jumlah
-                ]);
-
-                if ($after->jumlah < $request->jumlah) {
-                   $response = [
-                        'msg'=>'Jumlah melebihi stok barang !'
-                    ];
-
-                    return response()->json($response, 401);
-                }
-                $after->update([
-                    'jumlah'=>$after->jumlah - $request->jumlah
-                ]);
+            if ($request->jumlah < 1) {
+                return response()->json(['msg'=>'Jumlah tidak valid !'], 401);
             }
+
+            // jika barang ganti
+            // if ($request->id_inventaris !== $target->detail->id_inventaris) {
+            //     $before = \App\Inventaris::where('id_inventaris', $target->detail->id_inventaris)->first();
+            //     $after = \App\Inventaris::where('id_inventaris', $request->id_inventaris)->first();
+
+            //     if ($after->jumlah < $request->jumlah) {
+
+            //        $response = [
+            //             'msg'=>'Jumlah melebihi stok barang !'
+            //         ];
+
+            //         return response()->json($response, 401);
+            //     }
+                
+            //     $before->update([
+            //         'jumlah'=>$before->jumlah + $target->detail->jumlah
+            //     ]);
+
+            //     $after->update([
+            //         'jumlah'=>$after->jumlah - $request->jumlah
+            //     ]);
+            // }
 
             // jika jumlah lebih besar dari sebelumnya
             if ($request->jumlah >= $target->detail->jumlah) {
@@ -223,7 +234,7 @@ class PeminjamanController extends Controller
 
         $target->update([
             'id_pegawai'=>$request->id_pegawai,
-            'status_peminjaman'=>'Belum Kembali',
+            'status_peminjaman'=>$request->status_peminjaman,
             'tanggal_kembali'=>$tgl_kembali
         ]);
 

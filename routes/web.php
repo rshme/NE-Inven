@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('landing');
 })->name('landing')->middleware('guest');
 
+Route::get('/403', function(){
+	return view('pages.403');
+});
+
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::group(['prefix'=>'auth'], function(){
@@ -51,8 +55,10 @@ Route::get('/peminjaman/export/pdf', 'PeminjamanController@pdf')->name('peminjam
 Route::resource('inventaris', 'InventarisController');
 Route::get('datainventaris', 'InventarisController@datatables')->name('inventaris.data');
 Route::get('/inventaris/export/excel', 'InventarisController@excel')->name('inventaris.excel');
+// Route::get('/inventaris/periodeexport/excel/show', 'InventarisController@showPeriode')->name('inventaris.excel.periode.show');
 Route::get('/inventaris/periodeexport/excel', 'InventarisController@excelPeriode')->name('inventaris.excel.periode');
 Route::get('/inventaris/export/pdf', 'InventarisController@pdf')->name('inventaris.pdf');
+Route::get('/inventaris/periodeexport/pdf', 'InventarisController@pdfPeriode')->name('inventaris.pdf.periode');
 
 Route::resource('pengembalian', 'PengembalianController');
 Route::get('datapengembalian', 'PengembalianController@datatables')->name('pengembalian.data');

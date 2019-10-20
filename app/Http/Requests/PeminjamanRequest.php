@@ -27,6 +27,7 @@ class PeminjamanRequest extends FormRequest
             'id_inventaris'=>'required',
             'jumlah'=>'required|integer',
             'id_pegawai'=>'required',
+            // 'status_peminjaman'=>'required'
         ];
     }
 
@@ -36,7 +37,8 @@ class PeminjamanRequest extends FormRequest
             'id_inventaris.required'=>'Pilih Barang Yang Tersedia !',
             'jumlah.required'=>'Jumlah Barang Harus Diisi !',
             'jumlah.integer'=>'Jumlah Harus Angka !',
-            'id_pegawai.required'=>'Pilih Pegawai Yang Tersedia !'
+            'id_pegawai.required'=>'Pilih Pegawai Yang Tersedia !',
+            // 'status_peminjaman.required'=>'Pilih Status Peminjaman Yang Tersedia !'
         ];
     }
 }

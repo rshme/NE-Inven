@@ -33,7 +33,11 @@
 		<label for="jumlah">
 			Jumlah
 		</label>
-		<input type="text" name="jumlah" value="{{ $data->detail->jumlah }}" class="form-control" id="jumlah" autocomplete="off">
+		<input type="number" min="1" name="jumlah" value="{{ $data->detail->jumlah }}" class="form-control" id="jumlah" autocomplete="off">
+	</div>
+
+	<div class="form-group">
+		<input type="hidden" name="status_peminjaman" class="form-control" value="Belum Kembali" id="status_peminjaman" autocomplete="off">
 	</div>
 
 {{-- 	<div class="form-group">
