@@ -38,9 +38,9 @@
 		</label>
 		<select name="kondisi" class="custom-select" id="kondisi">
 			<option selected value="">Kondisi Barang</option>
-			<option value="baik">Baik</option>
-			<option value="rusak_ringan">Rusak Ringan</option>
-			<option value="rusak_parah">Rusak Parah</option>
+			<option value="Baik">Baik</option>
+			<option value="Rusak Ringan">Rusak Ringan</option>
+			<option value="Rusak Parah">Rusak Parah</option>
 		</select>
 	</div>
 

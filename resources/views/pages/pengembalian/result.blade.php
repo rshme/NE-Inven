@@ -14,7 +14,7 @@
 
 	<div class="form-group">
 		<label for="jumlah">
-			Jumlah
+			Jumlah yang dikembalikan
 		</label>
 		<input type="number" min="1" name="jumlah" class="form-control" id="jumlah" autocomplete="off">
 	</div>

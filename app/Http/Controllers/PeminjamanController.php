@@ -51,13 +51,26 @@ class PeminjamanController extends Controller
     public function store(PeminjamanRequest $request)
     {
 
-       $tgl_pinjam = Date::now()->format('Y-m-d');
+        $tgl_pinjam = Date::now()->format('Y-m-d');
 
         $barang = \App\Inventaris::where('id_inventaris', $request->id_inventaris)->first();
+
+        // $detail = \App\DetailPinjam::with(['peminjaman'])->where('id_inventaris', $request->id_inventaris)->where('jumlah', '>', 0)->orderBy('updated_at', 'desc')->first();
+
+        // if ($detail) {
+        //     $pegawai = $detail->peminjaman->id_pegawai;
+
+        //     if ($request->id_pegawai == $pegawai) {
+        //         return response()->json(['msg'=>'Barang '.$barang->nama.' belum dikembalikan oleh '.$detail->peminjaman->pegawai->nama_pegawai], 401);
+        //     }
+
+        // }
 
         if ($request->jumlah < 1) {
             return response()->json(['msg'=>'Jumlah tidak valid !'], 401);
         }
+
+
 
         if ($barang->jumlah >= $request->jumlah) {
 

@@ -25,7 +25,7 @@ class PetugasRequest extends FormRequest
     {
         if (request()->isMethod('POST')) {
             return [
-                'nama_petugas'=>'required',
+                'nama_petugas'=>'required|regex:/^[A-Za-z\s-_]+$/',
                 'id_level'=>'required',
                 'username'=>'required|min:3|max:12|unique:users,username',
                 'password'=>'required'
@@ -42,7 +42,7 @@ class PetugasRequest extends FormRequest
     {
         return[
             'nama_petugas.required'=>'Nama Petugas Harus Diisi !',
-            // 'nama_petugas.alpha'=>'Nama Harus Huruf Alfabet !',
+            'nama_petugas.regex'=>'Nama Harus Huruf Alfabet !',
             'id_level.required'=>'Pilih Level !',
             'username.required'=>'Username Harus Diisi !',
             'username.min'=>'Username Minimal 3 Karakter !',

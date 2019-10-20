@@ -16,6 +16,9 @@
 			<li class="sidebar-item">
 				<a href="{{ route('jenis.index') }}"><i class="fas fa-book mr-2"></i> <span>Jenis</span></a>
 			</li>
+			<li class="sidebar-item">
+				<a href="{{ route('ruang.index') }}"><i class="fas fa-home mr-2"></i> <span>Ruang</span></a>
+			</li>
 		{{-- <li class="sidebar-item">
 				<a href="{{ route('level.index') }}"><i class="fas fa-key mr-2"></i> <span>Level</span></a>
 			</li> --}}
@@ -24,9 +27,6 @@
 			</li>
 			<li class="sidebar-item">
 				<a href="{{ route('petugas.index') }}"><i class="fas fa-user mr-2"></i> <span>Petugas</span></a>
-			</li>
-			<li class="sidebar-item">
-				<a href="{{ route('ruang.index') }}"><i class="fas fa-home mr-2"></i> <span>Ruang</span></a>
 			</li>
 		@endif
 {{-- 		<li class="sidebar-item menu-collapse">

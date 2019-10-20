@@ -147,9 +147,9 @@ class InventarisController extends Controller
 
         $target = explode('-', $inven->kode_inventaris);
 
-        $date = explode('-', $request->tanggal_register);
+        $date = str_replace('-', '', Date::parse($request->tanggal_register)->format('dmy'));
 
-        $target[0] = $date[2];
+        $target[0] = $date;
 
         $target[1] = $request->id_jenis;
 
@@ -195,6 +195,8 @@ class InventarisController extends Controller
                 $data->delete();
 
                 \App\Peminjaman::destroy($allPeminjaman->toArray());
+
+                return response()->json(['msg'=>$data->nama.' berhasil dihapus']);
 
             }
             else if($peminjaman->status_peminjaman === 'Belum Kembali'){
@@ -243,6 +245,9 @@ class InventarisController extends Controller
             $data[2] = Ruang::where('id_ruang', $data[2])->first()['kode_ruang'];
 
             return implode('-', $data);
+        })->
+        addColumn('tgl_register', function($inventaris){
+            return Date::parse($inventaris->tanggal_register)->format('d-m-Y');
         })->
         addColumn('kondisi', function($inventaris){
             return ucfirst($inventaris->kondisi);

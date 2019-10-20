@@ -51,7 +51,10 @@ class PengembalianController extends Controller
     public function store(PeminjamanRequest $request)
     {
 
-        $target = \App\DetailPinjam::with(['peminjaman', 'inventaris'])->orderBy('created_at', 'desc')->where('id_inventaris', $request->id_inventaris)->where('jumlah', '>', 0)->first();
+        $peminjaman = Peminjaman::with(['pegawai', 'detail'])->where('id_pegawai', $request->id_pegawai)->first();
+
+        $target = $peminjaman->detail->where('id_inventaris', $request->id_inventaris)->where('jumlah', '>', 0)->first();
+
         $barang = $target->inventaris;
 
         if ($request->jumlah < 1) {

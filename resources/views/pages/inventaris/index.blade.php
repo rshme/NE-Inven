@@ -119,7 +119,7 @@
                          {data: "kondisi"},
                          {data: "keterangan"},
                          {data: "jumlah"},
-                         {data: "tanggal_register"},
+                         {data: "tgl_register"},
                          {data: "kode"},
                          {data: "action", orderable: false, searchable: false},
                     ]

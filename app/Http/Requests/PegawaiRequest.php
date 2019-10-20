@@ -25,14 +25,15 @@ class PegawaiRequest extends FormRequest
     {
         if(request()->isMethod('POST')){
             return [
-                'nama_pegawai'=>'required|alpha',
+                'nama_pegawai'=>'required|regex:/^[A-Za-z\s-_]+$/',
                 'nip'=>'required|numeric|unique:pegawai,nip',
                 'alamat'=>'required'
             ];
         }
         else{
             return [
-                'nip'=>'max:7|unique:pegawai,nip',
+                'nama_pegawai'=>'regex:/^[A-Za-z\s-_]+$/',
+                'nip'=>'unique:pegawai,nip',
             ];
         }
     }
@@ -41,7 +42,7 @@ class PegawaiRequest extends FormRequest
     {
         return[
             'nama_pegawai.required'=>'Nama Pegawai Harus Diisi !',
-            'nama_pegawai.alpha'=>'Nama Harus Huruf Alfabet !',
+            'nama_pegawai.regex'=>'Nama Harus Huruf Alfabet !',
             'nip.max'=>'Maksimal 7 Angka !',
             'nip.required'=>'NIP Harus Diisi !',
             'nip.numeric'=>'NIP Harus Angka !',
