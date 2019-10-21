@@ -105,7 +105,7 @@ li.sidebar-item:hover{
 	background-color:#171717;
 }
 
-li.menu-collapse{
+.menu-collapse{
 	cursor:pointer;
 }
 
@@ -135,12 +135,15 @@ li.menu-collapse{
 
 .header .left{
 	flex:10%;
+	display: flex;
+	align-items: center;
 }
 
 .header .left h3{
 	font-family:'Capriola';
 	font-size: 28px;
 	margin:0;
+	margin-right: 15px;
 }
 
 .header .right{

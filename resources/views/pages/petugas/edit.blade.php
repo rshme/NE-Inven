@@ -15,7 +15,7 @@
 		<select name="id_level" class="custom-select">
 			<option selected value="{{ $data->level->id_level }}">{{ $data->level->nama_level }}</option>
 			@foreach($levels as $level)
-				@if(auth()->user()->petugas->id_level !== $level->id_level)
+				@if($data->level->id_level !== $level->id_level)
 					<option value="{{ $level->id_level }}">{{ $level->nama_level }}</option>
 				@endif
 			@endforeach

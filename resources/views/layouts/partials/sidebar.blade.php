@@ -29,7 +29,7 @@
 				<a href="{{ route('petugas.index') }}"><i class="fas fa-user mr-2"></i> <span>Petugas</span></a>
 			</li>
 		@endif
-{{-- 		<li class="sidebar-item menu-collapse">
+		{{-- <li class="sidebar-item menu-collapse">
 			<i class="fas fa-play mr-2"></i>  <span>Collapse Menu</span>
 		</li> --}}
 	</ul>

@@ -106,6 +106,7 @@ class PetugasController extends Controller
 
         $data->update([
             'nama_petugas'=>$request->nama_petugas,
+            'id_level'=>$request->id_level
         ]);
 
         $user = User::findOrFail($data->user_id);

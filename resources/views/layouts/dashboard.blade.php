@@ -19,6 +19,9 @@
 		<div class="header">
 			<div class="left">
 				<h3>NE ~ Inven</h3>
+				<div class="sidebar-item menu-collapse">
+					<i class="fas fa-bars"></i>
+				</div>
 			</div>
 			<div class="right">
 				<li class="dropdown" style="padding:0;list-style: none">

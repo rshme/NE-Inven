@@ -33,7 +33,9 @@ class PetugasRequest extends FormRequest
         }
         else{
             return[
-                'username'=>'max:12|unique:users,username'
+                'nama_petugas'=>'regex:/^[A-Za-z\s-_]+$/',
+                'username'=>'max:12|unique:users,username',
+                'id_level'=>'required',
             ];
         }
     }

@@ -20,16 +20,9 @@
 								</a>
 
 								@if(auth()->user()->petugas->id_level === 1)
-									<div class="dropdown ml-3">
-									  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									    <i class="fas fa-able"></i> Download Excel
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									    <a class="dropdown-item" href="#">Periode</a>
-									    <a class="dropdown-item" href="{{ route('peminjaman.excel') }}">Semua</a>
-									  </div>
-									</div>
-
+									<a href="{{ route('peminjaman.excel') }}" class="btn btn-success ml-3">
+										<i class="fas fa-table"></i> Download Excel
+									</a>
 									<a href="{{ route('peminjaman.pdf') }}" class="btn btn-danger ml-3">
 										<i class="fas fa-file-pdf"></i> Download PDF
 									</a>
@@ -60,9 +53,6 @@
 									</th>
 									<th>
 										Tanggal Pinjam
-									</th>
-									<th>
-										Status
 									</th>
 									<th>
 										Aksi
@@ -96,7 +86,6 @@
                          {data: "barang", name:"barang"},
                          {data: "jumlah", name:"jumlah"},
                          {data: "tgl_pinjam", name:"tanggal_pinjam"},
-                         {data: "status_peminjaman", name:"status_peminjaman"},
                          {data:'action', orderable: false, searchable: false},
                     ]
                });  
